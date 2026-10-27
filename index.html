@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b2f68">
+  <meta name="description" content="Marco Delgado Garrido is a mathematician working in Topological Data Analysis, representation theory, and computational topology at IMUS, Universidad de Sevilla.">
+  <title>Marco Delgado Garrido — Topological Data Analysis</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f2f6ff;
+      --muted: #afc1df;
+      --ground: #0b2f68;
+      --panel: #124181;
+      --line: #4775ad;
+      --blue: #8be4ff;
+      --blue-soft: #c2dcff;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      position: relative;
+      isolation: isolate;
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 82% 9%, #1b65ae 0, transparent 35rem),
+        linear-gradient(145deg, #0b2f68 12%, #123e7a 58%, #0b2f68);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      background-image:
+        linear-gradient(#b8d9ff12 1px, transparent 1px),
+        linear-gradient(90deg, #b8d9ff12 1px, transparent 1px);
+      background-size: 48px 48px;
+      content: "";
+      pointer-events: none;
+    }
+
+    a { color: inherit; }
+    a:focus-visible { outline: 2px solid var(--blue); outline-offset: 5px; }
+    .shell { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+
+    .topbar {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .wordmark {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .wordmark span { color: var(--blue); }
+    nav { display: flex; flex-wrap: wrap; gap: 22px; }
+    nav a {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color .2s ease;
+    }
+    nav a:hover { color: var(--blue); }
+
+    .hero {
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      align-items: center;
+      gap: 56px;
+      padding-block: 72px 84px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .eyebrow, .section-label {
+      margin: 0;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .eyebrow::before { width: 28px; height: 1px; background: currentColor; content: ""; }
+    h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(56px, 7.2vw, 88px);
+      font-weight: 400;
+      letter-spacing: -.065em;
+      line-height: .96;
+    }
+    .hero-title {
+      max-width: 590px;
+      margin: 24px 0 0;
+      color: var(--blue-soft);
+      font-family: var(--serif);
+      font-size: clamp(25px, 3.2vw, 38px);
+      font-style: italic;
+      letter-spacing: -.035em;
+      line-height: 1.16;
+    }
+    .hero-intro { max-width: 510px; margin: 24px 0 0; color: #d0ddf2; font-size: 17px; }
+    .hero-intro strong { color: var(--ink); font-weight: 600; }
+    .hero-location { margin: 16px 0 0; color: var(--muted); font-size: 13px; letter-spacing: .02em; }
+
+    .hero-visual { display: grid; gap: 16px; width: min(100%, 340px); margin: 0; justify-self: end; }
+    .profile-photo {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      border: 1px solid #8bc7ff;
+      background: var(--panel);
+      object-fit: cover;
+      object-position: center;
+      box-shadow: 12px 12px 0 #50bfff25;
+    }
+    .imus-badge {
+      display: grid;
+      gap: 7px;
+      justify-items: center;
+      padding: 13px 10px 10px;
+      border: 1px solid #d6e4f4;
+      background: #f7f9fc;
+      color: #173c68;
+      text-align: center;
+      text-decoration: none;
+    }
+    .imus-badge img { display: block; width: min(100%, 145px); height: 34px; object-fit: contain; }
+    .imus-badge span { font-size: 9px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+    .photo-caption { grid-column: 1 / -1; margin: -4px 0 0; color: var(--muted); font-size: 12px; }
+
+    main { padding-bottom: 76px; }
+    .section {
+      display: grid;
+      grid-template-columns: minmax(155px, .75fr) 2fr;
+      gap: 48px;
+      padding-block: 62px;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 24px;
+    }
+    .section-label { margin-top: 8px; }
+    .section-body { max-width: 740px; }
+    h2 {
+      margin: 0 0 18px;
+      font-family: var(--serif);
+      font-size: clamp(34px, 4.5vw, 48px);
+      font-weight: 400;
+      letter-spacing: -.04em;
+      line-height: 1.1;
+    }
+    .section-body p { margin: 0; color: #d0ddf2; }
+    .section-body p + p { margin-top: 16px; }
+    .section-body strong { color: var(--ink); font-weight: 600; }
+
+    .interest-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .interest-list li {
+      padding: 6px 11px;
+      border: 1px solid #75a4dc;
+      border-radius: 2px;
+      color: #d4e5ff;
+      font-size: 12px;
+    }
+
+    .entry-list { border-top: 1px solid var(--line); }
+    .entry {
+      display: grid;
+      grid-template-columns: minmax(185px, .8fr) 1.5fr;
+      gap: 24px;
+      padding: 21px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .entry-title { margin: 0; color: var(--ink); font-size: 15px; font-weight: 600; line-height: 1.5; }
+    .entry-note { margin: 4px 0 0 !important; color: var(--muted) !important; font-size: 13px; }
+    .entry-type { color: var(--blue-soft); font-size: 13px; }
+    .paper-abstract { grid-column: 1 / -1; padding-top: 6px; border-top: 1px solid var(--line); }
+    .paper-abstract p { color: #d0ddf2; font-size: 14px; }
+    .entry-links { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 10px; }
+    .entry-links a { color: var(--blue); font-size: 12px; text-underline-offset: 3px; }
+    .subheading {
+      margin: 28px 0 14px;
+      color: var(--blue-soft);
+      font-family: var(--serif);
+      font-size: 25px;
+      font-weight: 400;
+      letter-spacing: -.025em;
+    }
+
+    .empty-state {
+      padding: 21px 22px;
+      border: 1px solid var(--line);
+      background: #124181aa;
+    }
+    .empty-state p { color: var(--muted); font-size: 14px; }
+    .contact-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 20px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: #124181aa;
+    }
+    .contact-card p { color: var(--muted); font-size: 14px; }
+    .contact-email {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--blue);
+      text-underline-offset: 4px;
+    }
+    .linkedin-link {
+      display: inline-block;
+      margin: 8px 0 0 15px;
+      color: var(--blue);
+      text-underline-offset: 4px;
+    }
+    .contact-mark {
+      display: grid;
+      width: 48px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid #75a4dc;
+      color: var(--blue);
+      font-family: var(--serif);
+      font-size: 25px;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-block: 24px 36px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    footer a { text-decoration-color: #7088ab; text-underline-offset: 3px; }
+
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr .8fr; gap: 32px; }
+      .hero-visual { width: min(100%, 330px); justify-self: center; }
+      .imus-badge { align-content: center; }
+      .section { gap: 30px; }
+      nav { gap: 14px; }
+    }
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 36px, 540px); }
+      .topbar { min-height: 82px; align-items: flex-start; flex-direction: column; justify-content: center; gap: 8px; }
+      nav { gap: 13px; }
+      nav a { font-size: 9px; }
+      .hero { grid-template-columns: 1fr; gap: 40px; padding-block: 68px 54px; }
+      .hero-visual { width: min(100%, 340px); justify-self: center; }
+      .imus-badge img { width: min(100%, 135px); }
+      .section { grid-template-columns: 1fr; gap: 17px; padding-block: 44px; }
+      .section-label { margin-top: 0; }
+    }
+    @media (max-width: 420px) {
+      .entry { grid-template-columns: 1fr; gap: 4px; }
+      .contact-card { grid-template-columns: 1fr; }
+      .contact-mark { display: none; }
+      footer { flex-direction: column; gap: 6px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell topbar">
+    <a class="wordmark" href="#top">MDG<span>.</span></a>
+    <nav aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#education">Education</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#publications">Publications</a>
+      <a href="#talks">Talks</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="shell hero" id="top" aria-labelledby="page-title">
+    <div class="hero-content">
+      <p class="eyebrow">Mathematics · Sevilla, Spain</p>
+      <h1 id="page-title">Marco<br>Delgado Garrido</h1>
+      <p class="hero-title">Topological Data Analysis and beyond</p>
+      <p class="hero-intro">
+        PhD student in Mathematics at Universidad de Sevilla, working at the intersection
+        of <strong>Topological Data Analysis</strong>, <strong>Representation Theory</strong>,
+        and <strong>Computational Topology</strong>.
+      </p>
+      <p class="hero-location">IMUS · Universidad de Sevilla · Depto. Matemática Aplicada I</p>
+    </div>
+    <figure class="hero-visual">
+      <img class="profile-photo" src="assets/marco-delgado-garrido.jpg" alt="Marco Delgado Garrido standing beside a blue geometric installation.">
+      <a class="imus-badge" href="https://www.imus.us.es/" target="_blank" rel="noopener noreferrer">
+        <img src="assets/imus-logo.svg" alt="IMUS — Instituto de Matemáticas de la Universidad de Sevilla">
+        <span>Research affiliation</span>
+      </a>
+      <figcaption class="photo-caption">Instituto de Matemáticas de la Universidad de Sevilla</figcaption>
+    </figure>
+  </section>
+
+  <main class="shell">
+    <section class="section" id="about">
+      <p class="section-label">01 / About</p>
+      <div class="section-body">
+        <h2>Mathematics across structures and data.</h2>
+        <p>
+          I am affiliated with the <strong>Instituto de Matemáticas de la Universidad de Sevilla (IMUS)</strong>
+          at the Universidad de Sevilla and the <strong>Depto. Matemática Aplicada I</strong>,
+          Sevilla, Spain.
+        </p>
+        <p>
+          My work brings together algebraic and computational perspectives on topology,
+          with a particular interest in the mathematical structures behind persistence.
+        </p>
+        <ul class="interest-list" aria-label="Mathematical interests">
+          <li>Topological Data Analysis</li>
+          <li>Persistence theory</li>
+          <li>Representation theory</li>
+          <li>Computational topology</li>
+          <li>Computational algebra</li>
+          <li>Sheaf theory</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="research">
+      <p class="section-label">02 / Research</p>
+      <div class="section-body">
+        <h2>Algebraic persistence, computational topology.</h2>
+        <p>
+          My research focuses on the development and study of mathematical structures
+          arising in Topological Data Analysis, particularly the algebraic aspects of
+          persistence theory and multiparameter persistence.
+        </p>
+        <p>
+          I am interested in connections between multipersistence, representation theory,
+          and sheaf theory. My recent work also touches computational topology, especially
+          image analysis and topological properties of nD-pictures.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="education">
+      <p class="section-label">03 / Education</p>
+      <div class="section-body">
+        <h2>Education &amp; academic training</h2>
+        <div class="entry-list">
+          <article class="entry">
+            <div>
+              <p class="entry-title">Doctor of Philosophy (PhD) in Mathematics</p>
+              <p class="entry-note">Universidad de Sevilla</p>
+            </div>
+            <span class="entry-type">November 2025–November 2029 · In progress</span>
+          </article>
+          <article class="entry">
+            <div>
+              <p class="entry-title">Master’s Degree in Mathematics</p>
+              <p class="entry-note">Universidad de Sevilla</p>
+            </div>
+            <span class="entry-type">October 2024–June 2025</span>
+          </article>
+          <article class="entry">
+            <div>
+              <p class="entry-title">Bachelor’s Degree in Mathematics</p>
+              <p class="entry-note">Universidad de Sevilla</p>
+            </div>
+            <span class="entry-type">September 2020–June 2024</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="teaching">
+      <p class="section-label">04 / Teaching</p>
+      <div class="section-body">
+        <h2>Teaching at Universidad de Sevilla</h2>
+        <div class="entry-list">
+          <article class="entry">
+            <div>
+              <p class="entry-title">Applied Mathematics for Civil Engineering II</p>
+              <p class="entry-note">Escuela Técnica Superior de Ingeniería de Edificación</p>
+            </div>
+            <span class="entry-type">Substitute teaching</span>
+          </article>
+          <article class="entry">
+            <div>
+              <p class="entry-title">Mathematics II</p>
+              <p class="entry-note">Ingeniería de la Salud</p>
+            </div>
+            <span class="entry-type">Laboratory classes</span>
+          </article>
+          <article class="entry">
+            <div>
+              <p class="entry-title">Introduction to Discrete Mathematics</p>
+              <p class="entry-note">Ingeniería Informática de Software y de Computadores</p>
+            </div>
+            <span class="entry-type">Laboratory classes</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="publications">
+      <p class="section-label">05 / Publications</p>
+      <div class="section-body">
+        <h2>Preprints &amp; publications</h2>
+        <div class="entry-list">
+          <article class="entry">
+            <div>
+              <p class="entry-title">arXiv preprint · 16 October 2026</p>
+              <p class="entry-note">arXiv:2610.23838 · Mathematics (math.AT)</p>
+            </div>
+            <div>
+              <p class="entry-title">A stable multipersistence invariant for ladder modules</p>
+              <p class="entry-note">Marco Delgado-Garrido, Lars Moberg Salbu, Álvaro Torras-Casas, and Rocío González-Díaz</p>
+              <div class="entry-links">
+                <a href="https://arxiv.org/abs/2610.23838" target="_blank" rel="noopener noreferrer">Abstract</a>
+                <a href="https://arxiv.org/pdf/2610.23838" target="_blank" rel="noopener noreferrer">PDF</a>
+              </div>
+            </div>
+            <div class="paper-abstract">
+              <p>
+                We define an additive functor S that assigns a three-parameter persistence
+                module to every morphism between one-parameter persistence modules. For
+                bar-to-bar morphisms, its image is rectangle-decomposable. We prove that S
+                is stable with respect to the interleaving distance and study its relation
+                to rectangle decompositions.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="talks">
+      <p class="section-label">06 / Talks</p>
+      <div class="section-body">
+        <h2>Talks &amp; presentations</h2>
+        <div class="entry-list">
+          <article class="entry">
+            <div>
+              <p class="entry-title">6 February 2026 · 10:15–10:45</p>
+              <p class="entry-note">Jornadas de Topología de Datos 2026 · IMUS, Sevilla</p>
+            </div>
+            <div>
+              <p class="entry-title">Categorías de módulos de persistencia</p>
+              <p class="entry-note">Speaker · Organizing committee</p>
+              <div class="entry-links">
+                <a href="https://imus.us.es/congresos/tdasevilla2026/" target="_blank" rel="noopener noreferrer">Event programme</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="additional-experience">
+      <p class="section-label">07 / Additional</p>
+      <div class="section-body">
+        <h2>Additional training &amp; research experience</h2>
+        <div class="entry-list">
+          <article class="entry">
+            <div>
+              <p class="entry-title">Escuela Taller de Análisis Funcional Bernardo Cascales</p>
+              <p class="entry-note">Cullera, Valencia · 2025</p>
+            </div>
+            <span class="entry-type">Functional analysis</span>
+            <div class="paper-abstract">
+              <p>A week-long research school on functional analysis and topology, including constructions of pathological spaces from almost-disjoint families.</p>
+            </div>
+          </article>
+          <article class="entry">
+            <div>
+              <p class="entry-title">From Topological Data Analysis to Floer Homology and Beyond</p>
+              <p class="entry-note">Universitat de Barcelona · Graduate course</p>
+            </div>
+            <span class="entry-type">Topology &amp; geometry</span>
+            <div class="paper-abstract">
+              <p>Applications of Topological Data Analysis and persistence modules to Floer homology and symplectic geometry.</p>
+            </div>
+          </article>
+          <article class="entry">
+            <div>
+              <p class="entry-title">PI3 Research Initiation Programme</p>
+              <p class="entry-note">IMUS · Applied Mathematics · June–August 2024</p>
+            </div>
+            <div>
+              <p class="entry-title">Characterizing autonomous wheelchair movement using computational topology</p>
+              <p class="entry-note">RexasiPRO research group</p>
+            </div>
+            <div class="paper-abstract">
+              <p>Research initiation in persistent homology and topological data analysis under the supervision of researchers in the Applied Mathematics I Department.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <p class="section-label">08 / Contact</p>
+      <div class="section-body">
+        <h2>Get in touch.</h2>
+        <div class="contact-card">
+          <p>
+            <strong>Instituto de Matemáticas de la Universidad de Sevilla (IMUS)</strong><br>
+            Universidad de Sevilla · Sevilla, Spain<br>
+            <a class="contact-email" href="mailto:mdelgado10@us.es">mdelgado10@us.es</a>
+            <a class="linkedin-link" href="https://es.linkedin.com/in/marco-delgado-garrido-2688a3339" target="_blank" rel="noopener noreferrer">LinkedIn profile</a>
+          </p>
+          <span class="contact-mark" aria-hidden="true">∑</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>Marco Delgado Garrido · Mathematics</span>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+</body>
+</html>
